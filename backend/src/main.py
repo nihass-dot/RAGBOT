@@ -1,11 +1,10 @@
-# src/main.py
 import sys
 import os
 
 # Add the parent directory to the Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from src.app import create_app
+from src.app import create_app#Creates and configures the FastAPI application run the server
 
 app = create_app()
 

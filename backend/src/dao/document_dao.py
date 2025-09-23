@@ -1,15 +1,16 @@
-# src/dao/document_dao.py
 import numpy as np
+import json
 from typing import List, Dict, Any
 from src.config.db import supabase
 from src.models.document import Document, DocumentCreate
-
+#Vector search, batch operations, error handling
 class DocumentDAO:
     @staticmethod
     def create_document(document: DocumentCreate) -> Document:
         data = document.dict()
         if data["embedding"]:
-            data["embedding"] = data["embedding"]  # Supabase will handle the conversion
+            # Convert list to string for storage
+            data["embedding"] = json.dumps(data["embedding"])
         
         response = supabase.table("documents").insert(data).execute()
         
@@ -22,7 +23,8 @@ class DocumentDAO:
         data_list = [doc.dict() for doc in documents]
         for data in data_list:
             if data["embedding"]:
-                data["embedding"] = data["embedding"]  # Supabase will handle the conversion
+                # Convert list to string for storage
+                data["embedding"] = json.dumps(data["embedding"])
         
         response = supabase.table("documents").insert(data_list).execute()
         

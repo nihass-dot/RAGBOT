@@ -1,7 +1,7 @@
-# src/models/document.py
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from typing import Optional, List
 from datetime import datetime
+import json
 
 class DocumentBase(BaseModel):
     title: str
@@ -15,6 +15,17 @@ class DocumentCreate(DocumentBase):
 class Document(DocumentBase):
     id: int
     created_at: datetime
+    
+    @field_validator('embedding', mode='before')
+    @classmethod
+    def parse_embedding(cls, v):
+        if isinstance(v, str):
+            try:
+                # Convert string representation of list to actual list
+                return json.loads(v)
+            except json.JSONDecodeError:
+                return v
+        return v
     
     class Config:
         from_attributes = True

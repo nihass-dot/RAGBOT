@@ -1,6 +1,5 @@
-# src/app.py
 import sys
-import os
+import os# Sets up middleware, routes, and error handling
 
 # Add the parent directory to the Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))

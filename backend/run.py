@@ -1,5 +1,5 @@
 # run.py
-import os
+import os#entry point
 import sys
 import uvicorn  # Add this import
 
@@ -12,7 +12,7 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     debug = os.environ.get("DEBUG", "true").lower() == "true"
     
-    uvicorn.run(
+    uvicorn.run(#Auto-reload for development, configurable port and debug mode
         "run:app",
         host="0.0.0.0",
         port=port,

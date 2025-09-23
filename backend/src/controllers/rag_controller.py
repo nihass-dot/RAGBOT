@@ -1,11 +1,10 @@
-# src/controllers/rag_controller.py
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from typing import List
 from src.services.rag_service import RAGService
 from src.models.document import QueryRequest, QueryResponse
 import traceback
 import os
-
+#Api endpoints,handles http req, file upload handling form data processing,error response
 router = APIRouter()
 
 @router.get("/")
@@ -29,7 +28,6 @@ async def check_env():
         "SUPABASE_URL": os.environ.get("SUPABASE_URL", "NOT SET"),
         "SUPABASE_KEY": os.environ.get("SUPABASE_KEY", "NOT SET")[:10] + "..." if os.environ.get("SUPABASE_KEY") else "NOT SET",
         "GROQ_API_KEY": os.environ.get("GROQ_API_KEY", "NOT SET")[:10] + "..." if os.environ.get("GROQ_API_KEY") else "NOT SET",
-        "GEMINI_API_KEY": os.environ.get("GEMINI_API_KEY", "NOT SET")[:10] + "..." if os.environ.get("GEMINI_API_KEY") else "NOT SET",
     }
 
 @router.post("/process-document", response_model=dict)
